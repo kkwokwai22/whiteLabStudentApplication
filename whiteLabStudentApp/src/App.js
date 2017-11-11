@@ -4,31 +4,40 @@ import axios from 'axios';
 import './App.css';
 
 class App extends Component {
-  fetchData() {
-    const urlStudentData = 'https://quiet-lake-28784.herokuapp.com/';
-    let request = url => {
-      axios
-        .get(url)
-        .then(function(response) {
-          console.log('data: ', response.data);
-        })
-        .catch(function(error) {
-          console.log('error ', error);
-        });
+  constructor() {
+    super();
+
+    this.state = {
+      data: null
     };
-    console.log(request(urlStudentData));
+  }
+
+  componentDidMount() {
+    const urlStudentData = 'https://quiet-lake-28784.herokuapp.com/';
+    axios
+      .get(urlStudentData)
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          data: response.data[0].course
+        });
+      })
+      .catch(error => {
+        console.log('error ', error);
+      });
   }
 
   render() {
+    console.log(this.state.data);
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          <button onClick={this.fetchData.bind(this)}>fetchData</button>
-        </p>
+        <div className="App-intro">
+          <h1>{this.state.data}</h1>
+        </div>
       </div>
     );
   }
