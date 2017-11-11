@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import NavBar from './NavBar';
 import RadioButtons from '../containers/RadioButtons';
+import DisplayPieChart from '../containers/DisplayPieChart';
 import './App.css';
 
 class App extends Component {
@@ -59,10 +60,13 @@ class App extends Component {
         <div>
           <RadioButtons />
         </div>
-        <div className="App-intro">
-          <h1>hello world</h1>
-
-          <button onClick={this.getYear.bind(this)}>getyear</button>
+        <div className="pieChart">
+          <DisplayPieChart />
+          <div />
+          <div className="App-intro">
+            <h1>hello world</h1>
+            <button onClick={this.getYear.bind(this)}>getyear</button>
+          </div>
         </div>
       </div>
     );
