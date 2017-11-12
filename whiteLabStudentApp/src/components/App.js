@@ -13,17 +13,6 @@ class App extends Component {
     getAllStudentDataAction();
   }
 
-  getYear() {
-    let year2015 = [];
-    let year2016 = [];
-    let data = this.state.data;
-    data.forEach(val => {
-      if (val.year === 2015) {
-        year2015.push(val);
-      } else if (val.year === 2016) year2016.push(val);
-    });
-  }
-
   render() {
     console.log(this.props.allCourseData);
     return (
@@ -40,10 +29,7 @@ class App extends Component {
         <div>
           <TableForCourse />
         </div>
-        <div className="App-intro">
-          <h1>hello world</h1>
-          <button onClick={this.getYear.bind(this)}>getyear</button>
-        </div>
+        <div className="App-intro" />
       </div>
     );
   }

@@ -1,19 +1,21 @@
 import axios from 'axios';
 
 export const FETCH_STUDENTDATA = 'FETCH_STUDENTDATA';
+export const FETCH_2015DATA = 'FETCH_2015DATA';
 
+// starting of the application I will fetch the studentData
 export function getAllData() {
 	const urlStudentData = 'https://quiet-lake-28784.herokuapp.com/';
 	let allStudentData = axios.get(urlStudentData);
-	// .then(response => {
-	// 	console.log('response.data', response.data);
-	// 	allStudentData = response.data;
-	// })
-	// .catch(error => {
-	// 	console.log('error ', error);
-	// });
+	console.log('response', allStudentData);
 	return {
 		type: FETCH_STUDENTDATA,
 		payload: allStudentData
+	};
+}
+
+export function get2015Data() {
+	return {
+		type: FETCH_2015DATA
 	};
 }
