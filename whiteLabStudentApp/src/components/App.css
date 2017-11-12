@@ -19,6 +19,11 @@
   width: 500px;
 }
 
+.tableCourse {
+  width: 50%;
+  height: 500px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

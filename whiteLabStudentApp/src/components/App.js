@@ -1,35 +1,16 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import NavBar from './NavBar';
+import { connect } from 'react-redux';
 import RadioButtons from '../containers/RadioButtons';
+import TableForCourse from '../containers/TableForCourse';
 import DisplayPieChart from '../containers/DisplayPieChart';
+import { getAllData } from '../actions/action_getAllData';
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      data: null,
-      dataOf2015: null,
-      dataOf2016: null
-    };
-  }
-
   componentDidMount() {
-    const urlStudentData = 'https://quiet-lake-28784.herokuapp.com/';
-    axios
-      .get(urlStudentData)
-      .then(response => {
-        console.log(response.data);
-        const allData = response.data;
-        this.setState({
-          data: allData
-        });
-      })
-      .catch(error => {
-        console.log('error ', error);
-      });
+    const { getAllStudentDataAction } = this.props;
+    getAllStudentDataAction();
   }
 
   getYear() {
@@ -41,17 +22,10 @@ class App extends Component {
         year2015.push(val);
       } else if (val.year === 2016) year2016.push(val);
     });
-    this.setState({
-      dataOf2015: year2015
-    });
-    this.setState({
-      dataOf2016: year2016
-    });
   }
 
   render() {
-    console.log(this.state.dataOf2016);
-    console.log(this.state.dataOf2015);
+    console.log(this.props.allCourseData);
     return (
       <div className="App">
         <header className="App-header">
@@ -62,15 +36,29 @@ class App extends Component {
         </div>
         <div className="pieChart">
           <DisplayPieChart />
-          <div />
-          <div className="App-intro">
-            <h1>hello world</h1>
-            <button onClick={this.getYear.bind(this)}>getyear</button>
-          </div>
+        </div>
+        <div>
+          <TableForCourse />
+        </div>
+        <div className="App-intro">
+          <h1>hello world</h1>
+          <button onClick={this.getYear.bind(this)}>getyear</button>
         </div>
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    getAllStudentDataAction: () => dispatch(getAllData())
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    allCourseData: state.allCourseData
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

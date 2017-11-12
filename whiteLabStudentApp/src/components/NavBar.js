@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const NavBar = () => {
 	return <h1 className="App-title">Student By Course</h1>;
