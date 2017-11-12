@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get2015Data } from '../actions/action_getAllData';
+import { get2015Data, get2016Data } from '../actions/action_getAllData';
 
 class RadioButtons extends Component {
 	constructor(props) {
@@ -12,7 +12,8 @@ class RadioButtons extends Component {
 	}
 
 	render() {
-		const { get2015StudentDataAction } = this.props;
+		const { get2015StudentDataAction, get2016StudentDataAction } = this.props;
+		console.log('the data from reducers ', this.props.allDataFromReducer);
 		return (
 			<div>
 				<h3>Years:</h3>
@@ -42,7 +43,7 @@ class RadioButtons extends Component {
 						id="contactChoice3"
 						name="contact"
 						value="mail"
-						onClick={this.hello.bind(this)}
+						onClick={get2016StudentDataAction}
 					/>
 					<label for="contactChoice3">2016</label>
 				</div>
@@ -53,13 +54,14 @@ class RadioButtons extends Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		get2015StudentDataAction: () => dispatch(get2015Data())
+		get2015StudentDataAction: () => dispatch(get2015Data()),
+		get2016StudentDataAction: () => dispatch(get2016Data())
 	};
 };
 
 const mapStateToProps = state => {
 	return {
-		all2015DataFromReducer: state.allCourseData
+		allDataFromReducer: state.allCourseData
 	};
 };
 
