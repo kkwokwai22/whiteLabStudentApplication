@@ -14,14 +14,33 @@
   font-size: large;
 }
 
-.pieChart {
-  height: 500px;
-  width: 500px;
+.wrapper {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-.tableCourse {
-  width: 50%;
+.pieChart {
+  flex-grow: 1;
   height: 500px;
+  width: 500px;
+  margin: 50px;
+}
+
+.tableChart {
+  flex-grow: 2;
+  width: 100%;
+  margin: 50px;
+}
+
+.tableChart td,
+.tableChart th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.flex-container {
+  display: flex;
 }
 
 @keyframes App-logo-spin {

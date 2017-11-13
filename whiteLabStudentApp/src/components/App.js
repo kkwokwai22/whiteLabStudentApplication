@@ -23,11 +23,15 @@ class App extends Component {
         <div>
           <RadioButtons />
         </div>
-        <div className="pieChart">
-          <DisplayPieChart />
-        </div>
-        <div>
-          <TableForCourse />
+        <div class="wrapper">
+          <div class="flex-container">
+            <div className="pieChart">
+              <DisplayPieChart />
+            </div>
+            <div className="tableChart">
+              <TableForCourse />
+            </div>
+          </div>
         </div>
         <div className="App-intro" />
       </div>

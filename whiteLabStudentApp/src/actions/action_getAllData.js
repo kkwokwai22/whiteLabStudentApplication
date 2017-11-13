@@ -8,7 +8,6 @@ export const FETCH_2016DATA = 'FETCH_2016DATA';
 export function getAllData() {
 	const urlStudentData = 'https://quiet-lake-28784.herokuapp.com/';
 	let allStudentData = axios.get(urlStudentData);
-	console.log('response', allStudentData);
 	return {
 		type: FETCH_STUDENTDATA,
 		payload: allStudentData

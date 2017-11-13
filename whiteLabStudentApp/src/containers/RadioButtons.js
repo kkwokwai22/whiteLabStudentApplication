@@ -9,7 +9,6 @@ class RadioButtons extends Component {
 
 	render() {
 		const { getAllStudentDataAction, get2015StudentDataAction, get2016StudentDataAction } = this.props;
-		console.log('the data from reducers ', this.props.allDataFromReducer);
 		return (
 			<div>
 				<h3>Years:</h3>

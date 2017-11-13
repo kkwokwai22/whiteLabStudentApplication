@@ -5082,7 +5082,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.9, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5305,9 +5305,11 @@ react-scripts@1.0.17:
   optionalDependencies:
     fsevents "1.1.2"
 
-react-simple-pie-chart@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/react-simple-pie-chart/-/react-simple-pie-chart-0.5.0.tgz#207238a6fcfc268d20706894fd28169dc84b42c2"
+react-svg-piechart@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-svg-piechart/-/react-svg-piechart-1.4.0.tgz#c6a82c19d4a9063b45873e2cdf2b69d8013810ea"
+  dependencies:
+    prop-types "^15.5.9"
 
 react-transition-group@^1.2.1:
   version "1.2.1"
