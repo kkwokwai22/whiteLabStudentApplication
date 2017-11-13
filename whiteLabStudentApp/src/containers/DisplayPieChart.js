@@ -9,8 +9,6 @@ class DisplayPieChart extends Component {
     this.state = {
       expandedSector: null
     };
-
-    this.handleMouseEnterOnSector = this.handleMouseEnterOnSector.bind(this);
   }
 
   handleMouseEnterOnSector(sector) {
@@ -18,8 +16,10 @@ class DisplayPieChart extends Component {
   }
 
   render() {
-    const { differentDataFromReducer } = this.props;
-    console.log('the data i need', differentDataFromReducer);
+    const { dataAllFromReducer, data2015FromReducer, data2016FromReducer } = this.props;
+    let appliedComposition = null;
+    let argumentAnalysis = null;
+    let freshmanComposition = null;
     const data = [
       { label: 'Facebook', value: 100, color: '#3b5998' },
       { label: 'Twitter', value: 60, color: '#00aced' },
@@ -30,14 +30,7 @@ class DisplayPieChart extends Component {
 
     return (
       <div>
-        <PieChart
-          data={data}
-          expandedSector={expandedSector}
-          onSectorHover={this.handleMouseEnterOnSector}
-          sectorStrokeWidth={2}
-          expandOnHover
-          shrinkOnTouchEnd
-        />
+        <PieChart data={data} expandedSector={expandedSector} sectorStrokeWidth={2} expandOnHover shrinkOnTouchEnd />
         <div>
           {data.map((element, i) => (
             <div key={i}>
@@ -63,7 +56,9 @@ class DisplayPieChart extends Component {
 
 const mapStateToProps = state => {
   return {
-    differentDataFromReducer: state.allCourseData
+    dataAllFromReducer: state.allCourseData,
+    data2015FromReducer: state.data2015Course,
+    data2016FromReducer: state.data2016Course
   };
 };
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get2015Data, get2016Data, getAllData } from '../actions/action_getAllData';
+import { getAllData } from '../actions/action_getAllData';
+import { get2015Data } from '../actions/action_get2015data';
+import { get2016Data } from '../actions/action_get2016data';
 
 class RadioButtons extends Component {
 	constructor(props) {
@@ -57,7 +59,9 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
 	return {
-		allDataFromReducer: state.allCourseData
+		allDataFromReducer: state.allCourseData,
+		all2015DataFromReducer: state.data2015Course,
+		all2016DataFromReducer: state.data2016Course
 	};
 };
 
