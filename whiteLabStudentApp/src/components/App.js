@@ -24,10 +24,10 @@ class App extends Component {
         <div class="wrapper">
           <div class="flex-container">
             <div className="pieChart">
-              <DisplayPieChart />
+              <DisplayPieChart courses={this.props.courses} />
             </div>
             <div className="tableChart">
-              <TableForCourse courses={this.props.courses}/>
+              <TableForCourse courses={this.props.courses} />
             </div>
           </div>
         </div>
@@ -38,17 +38,19 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const { data, year, course } = state.allCourseData
+  const { data, year, course } = state.allCourseData;
   return {
-    courses: year ? data.filter(item => {
-      return item.year === year
-    }) : data,
-  }  
-}
+    courses: year
+      ? data.filter(item => {
+          return item.year === year;
+        })
+      : data
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   getAllStudentDataAction: () => dispatch(getAllData()),
-  setYear: () => dispatch(setYear()),
-})
+  setYear: () => dispatch(setYear())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

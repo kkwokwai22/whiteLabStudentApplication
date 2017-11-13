@@ -17,6 +17,7 @@ export default class TableForCourse extends Component {
   }
 
   render() {
+    console.log('the course data', this.props.courses);
     return (
       <table>
         <thead>

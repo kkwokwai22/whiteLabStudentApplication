@@ -1,65 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PieChart from 'react-svg-piechart';
+import { getAllData, setYear, clearYear, set1A, set1B, set1C } from '../actions/action_getAllData';
 
 class DisplayPieChart extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      expandedSector: null
-    };
-  }
-
-  handleMouseEnterOnSector(sector) {
-    this.setState({ expandedSector: sector });
+  constructor(props) {
+    super(props);
   }
 
   render() {
-    const { dataAllFromReducer, data2015FromReducer, data2016FromReducer } = this.props;
-    let appliedComposition = null;
-    let argumentAnalysis = null;
-    let freshmanComposition = null;
-    const data = [
-      { label: 'Facebook', value: 100, color: '#3b5998' },
-      { label: 'Twitter', value: 60, color: '#00aced' },
-      { label: 'Google Plus', value: 30, color: '#dd4b39' }
-    ];
-
-    const { expandedSector } = this.state;
-
+    const { courses } = this.props;
+    console.log('hi', courses);
+    let appliedComposition = courses.filter(val => {
+      if (val.course.indexOf('Applied') > 1) return val.course;
+    });
+    let argumentAnalyisis = courses.filter(val => {
+      if (val.course.indexOf('Argument') > 1) return val.course;
+    });
+    let freshmanComposition = courses.filter(val => {
+      if (val.course.indexOf('Freshman') > 1) return val.course;
+    });
+    let appliedLen = appliedComposition.length;
+    let argumentLen = argumentAnalyisis.length;
+    let freshmanLen = freshmanComposition.length;
     return (
       <div>
-        <PieChart data={data} expandedSector={expandedSector} sectorStrokeWidth={2} expandOnHover shrinkOnTouchEnd />
-        <div>
-          {data.map((element, i) => (
-            <div key={i}>
-              <span style={{ background: element.color }} />
-              <span style={{ fontWeight: this.state.expandedSector === i ? 'bold' : null }}>
-                {element.label} : {element.value}
-              </span>
-            </div>
-          ))}
-        </div>
+        <button>English 1C: Applied Composition people in class: {appliedLen}</button>
+        <button>English 1B: Argument & Analyisis people in class: {argumentLen}</button>
+        <button>English 1A: freshman Composition people in class: {freshmanLen}</button>
       </div>
     );
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getAllStudentDataAction: () => dispatch(getAllData()),
-//     get2015StudentDataAction: () => dispatch(get2015Data()),
-//     get2016StudentDataAction: () => dispatch(get2016Data())
-//   };
-// };
-
 const mapStateToProps = state => {
+  const { data, year, course } = state.allCourseData;
   return {
-    dataAllFromReducer: state.allCourseData,
-    data2015FromReducer: state.data2015Course,
-    data2016FromReducer: state.data2016Course
+    courses: year
+      ? data.filter(item => {
+          return item.year === year;
+        })
+      : data
   };
 };
 
-export default connect(mapStateToProps, null)(DisplayPieChart);
+// not only
+const mapDispatchToProps = dispatch => ({
+  getAllStudentDataAction: () => dispatch(getAllData()),
+  setYear: () => dispatch(setYear()),
+  set1A: course => dispatch(set1A(course)),
+  set1B: course => dispatch(set1B(course)),
+  set1C: course => dispatch(set1C(course))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayPieChart);

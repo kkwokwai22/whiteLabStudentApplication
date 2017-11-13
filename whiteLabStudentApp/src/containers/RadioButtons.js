@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllData, setYear, clearYear } from '../actions/action_getAllData';
-import { get2015Data } from '../actions/action_get2015data';
-import { get2016Data } from '../actions/action_get2016data';
 
 class RadioButtons extends Component {
 	constructor(props) {
@@ -10,19 +8,12 @@ class RadioButtons extends Component {
 	}
 
 	render() {
-		const { setYear, clearYear, state, getAllStudentDataAction, get2015StudentDataAction, get2016StudentDataAction } = this.props;
-// console.log(state)
+		const { setYear, clearYear, state, getAllStudentDataAction } = this.props;
 		return (
 			<div>
 				<h3>Years:</h3>
 				<div>
-					<input
-						type="radio"
-						id="contactChoice1"
-						name="contact"
-						value="email"
-						onClick={()=>clearYear()}
-					/>
+					<input type="radio" id="contactChoice1" name="contact" value="email" onClick={() => clearYear()} />
 					<label for="contactChoice1">All</label>
 				</div>
 				<div>
@@ -31,18 +22,12 @@ class RadioButtons extends Component {
 						id="contactChoice2"
 						name="contact"
 						value="phone"
-						onClick={()=>setYear(2015)}
+						onClick={() => setYear(2015)}
 					/>
 					<label for="contactChoice2">2015</label>
 				</div>
 				<div>
-					<input
-						type="radio"
-						id="contactChoice3"
-						name="contact"
-						value="mail"
-						onClick={get2016StudentDataAction}
-					/>
+					<input type="radio" id="contactChoice3" name="contact" value="mail" onClick={() => setYear(2016)} />
 					<label for="contactChoice3">2016</label>
 				</div>
 			</div>
@@ -53,18 +38,14 @@ class RadioButtons extends Component {
 const mapDispatchToProps = dispatch => {
 	return {
 		getAllStudentDataAction: () => dispatch(getAllData()),
-		get2015StudentDataAction: () => dispatch(get2015Data()),
-		get2016StudentDataAction: () => dispatch(get2016Data()),
 		setYear: year => dispatch(setYear(year)),
-		clearYear: _ => dispatch(clearYear()),
+		clearYear: _ => dispatch(clearYear())
 	};
 };
 
 const mapStateToProps = state => {
 	return {
-		allDataFromReducer: state.allCourseData,
-		all2015DataFromReducer: state.data2015Course,
-		all2016DataFromReducer: state.data2016Course,
+		allDataFromReducer: state.allCourseData
 	};
 };
 
