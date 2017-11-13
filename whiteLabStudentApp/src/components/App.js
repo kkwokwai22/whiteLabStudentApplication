@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import RadioButtons from '../containers/RadioButtons';
 import TableForCourse from '../containers/TableForCourse';
 import DisplayPieChart from '../containers/DisplayPieChart';
-import { getAllData, setYear } from '../actions/action_getAllData';
+import { getAllData, setYear, setCourse } from '../actions/action_getAllData';
 import './App.css';
 
 class App extends Component {
@@ -13,6 +13,7 @@ class App extends Component {
   }
 
   render() {
+    const { setYear, courses } = this.props
     return (
       <div className="App">
         <header className="App-header">
@@ -24,10 +25,10 @@ class App extends Component {
         <div class="wrapper">
           <div class="flex-container">
             <div className="pieChart">
-              <DisplayPieChart courses={this.props.courses} />
+              <DisplayPieChart courses={courses} setCourse={setCourse} />
             </div>
             <div className="tableChart">
-              <TableForCourse courses={this.props.courses} />
+              <TableForCourse courses={courses} setCourse={setCourse} />
             </div>
           </div>
         </div>
@@ -50,7 +51,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   getAllStudentDataAction: () => dispatch(getAllData()),
-  setYear: () => dispatch(setYear())
+  setCourse: course => dispatch(setCourse(course))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

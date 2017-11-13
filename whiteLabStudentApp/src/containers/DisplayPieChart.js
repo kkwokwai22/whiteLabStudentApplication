@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getAllData, setYear, clearYear, set1A, set1B, set1C } from '../actions/action_getAllData';
 
 class DisplayPieChart extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    const { courses } = this.props;
-    console.log('hi', courses);
+    const { courses, setCourse } = this.props;
+    let hashTable = { keys: [] }
+    courses.forEach(item => {
+      if(hashTable[item.course]) {
+        hashTable[item.course].push(item)
+      } else {
+        hashTable[item.course] = []
+        hashTable.keys.push(item.course)
+      }
+    })
+    console.log(hashTable[hashTable.keys[0]])
     let appliedComposition = courses.filter(val => {
       if (val.course.indexOf('Applied') > 1) return val.course;
     });
@@ -22,6 +25,7 @@ class DisplayPieChart extends Component {
     let appliedLen = appliedComposition.length;
     let argumentLen = argumentAnalyisis.length;
     let freshmanLen = freshmanComposition.length;
+
     return (
       <div>
         <button>English 1C: Applied Composition people in class: {appliedLen}</button>
@@ -32,24 +36,4 @@ class DisplayPieChart extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { data, year, course } = state.allCourseData;
-  return {
-    courses: year
-      ? data.filter(item => {
-          return item.year === year;
-        })
-      : data
-  };
-};
-
-// not only
-const mapDispatchToProps = dispatch => ({
-  getAllStudentDataAction: () => dispatch(getAllData()),
-  setYear: () => dispatch(setYear()),
-  set1A: course => dispatch(set1A(course)),
-  set1B: course => dispatch(set1B(course)),
-  set1C: course => dispatch(set1C(course))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DisplayPieChart);
+export default DisplayPieChart
