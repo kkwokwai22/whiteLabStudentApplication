@@ -16,13 +16,19 @@ export function getAllData() {
 }
 
 export function get2015Data() {
+	const urlStudentData = 'https://quiet-lake-28784.herokuapp.com/';
+	let allStudentData2015 = axios.get(urlStudentData);
 	return {
-		type: FETCH_2015DATA
+		type: FETCH_2015DATA,
+		payload: allStudentData2015
 	};
 }
 
 export function get2016Data() {
+	const urlStudentData = 'https://quiet-lake-28784.herokuapp.com/';
+	let allStudentData2016 = axios.get(urlStudentData);
 	return {
-		type: FETCH_2016DATA
+		type: FETCH_2016DATA,
+		payload: allStudentData2016
 	};
 }

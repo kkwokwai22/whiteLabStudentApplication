@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get2015Data, get2016Data } from '../actions/action_getAllData';
+import { get2015Data, get2016Data, getAllData } from '../actions/action_getAllData';
 
 class RadioButtons extends Component {
 	constructor(props) {
 		super(props);
 	}
 
-	hello() {
-		alert('hello');
-	}
-
 	render() {
-		const { get2015StudentDataAction, get2016StudentDataAction } = this.props;
+		const { getAllStudentDataAction, get2015StudentDataAction, get2016StudentDataAction } = this.props;
 		console.log('the data from reducers ', this.props.allDataFromReducer);
 		return (
 			<div>
@@ -23,7 +19,7 @@ class RadioButtons extends Component {
 						id="contactChoice1"
 						name="contact"
 						value="email"
-						onClick={this.hello.bind(this)}
+						onClick={getAllStudentDataAction}
 					/>
 					<label for="contactChoice1">All</label>
 				</div>
@@ -54,6 +50,7 @@ class RadioButtons extends Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		getAllStudentDataAction: () => dispatch(getAllData()),
 		get2015StudentDataAction: () => dispatch(get2015Data()),
 		get2016StudentDataAction: () => dispatch(get2016Data())
 	};
