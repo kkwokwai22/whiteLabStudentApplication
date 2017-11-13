@@ -1,17 +1,6 @@
 import React, { Component } from 'react';
 
 export default class TableForCourse extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      list: [
-        { id: 0, year: 2015, course: 'English 1C: Applied Composition', instructor: 'Lacey Leblanc', students: 5 },
-        { id: 1, year: 2015, course: 'English 1B: Argument & Analysis', instructor: 'Mcclain Page', students: 5 }
-      ]
-    };
-  }
-
   renderCourse(classDetail) {
     const year = classDetail.year;
     const course = classDetail.course;
@@ -38,7 +27,7 @@ export default class TableForCourse extends Component {
             <th>Students</th>
           </tr>
         </thead>
-        <tbody>{this.state.list.map(this.renderCourse)}</tbody>
+        <tbody>{this.props.courses.map(this.renderCourse)}</tbody>
       </table>
     );
   }

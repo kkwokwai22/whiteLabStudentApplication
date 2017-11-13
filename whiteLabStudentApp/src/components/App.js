@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 import RadioButtons from '../containers/RadioButtons';
 import TableForCourse from '../containers/TableForCourse';
 import DisplayPieChart from '../containers/DisplayPieChart';
-import { getAllData } from '../actions/action_getAllData';
+import { getAllData, setYear } from '../actions/action_getAllData';
 import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    const { getAllStudentDataAction } = this.props;
-    getAllStudentDataAction();
+    this.props.getAllStudentDataAction();
   }
 
   render() {
@@ -28,7 +27,7 @@ class App extends Component {
               <DisplayPieChart />
             </div>
             <div className="tableChart">
-              <TableForCourse />
+              <TableForCourse courses={this.props.courses}/>
             </div>
           </div>
         </div>
@@ -38,16 +37,18 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getAllStudentDataAction: () => dispatch(getAllData())
-  };
-};
-
 const mapStateToProps = state => {
+  const { data, year, course } = state.allCourseData
   return {
-    allCourseData: state.allCourseData
-  };
-};
+    courses: year ? data.filter(item => {
+      return item.year === year
+    }) : data,
+  }  
+}
+
+const mapDispatchToProps = dispatch => ({
+  getAllStudentDataAction: () => dispatch(getAllData()),
+  setYear: () => dispatch(setYear()),
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
