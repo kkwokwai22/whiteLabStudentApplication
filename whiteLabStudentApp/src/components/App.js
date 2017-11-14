@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import RadioButtons from '../containers/RadioButtons';
 import TableForCourse from '../containers/TableForCourse';
 import DisplayPieChart from '../containers/DisplayPieChart';
-import { getAllData, setYear } from '../actions/action_getAllData';
+import { getAllData, setYear, setCourse } from '../actions/action_getAllData';
 import './App.css';
 
 class App extends Component {
@@ -13,21 +13,24 @@ class App extends Component {
   }
 
   render() {
+    const { setYear, courses, setCourse, course, allCourses, year } = this.props
     return (
       <div className="App">
         <header className="App-header">
           <NavBar />
         </header>
         <div>
-          <RadioButtons />
+          <RadioButtons allCourses={allCourses} setYear={setYear} />
         </div>
-        <div class="wrapper">
-          <div class="flex-container">
+        <div className="wrapper">
+          <div className="flex-container">
             <div className="pieChart">
-              <DisplayPieChart courses={this.props.courses} />
+              <DisplayPieChart courses={courses} setCourse={setCourse}/>
             </div>
             <div className="tableChart">
-              <TableForCourse courses={this.props.courses} />
+              {<span>{year || `All`} </span>}
+              {course && <span>{course}</span>}
+              <TableForCourse courses={courses} course={course}  />
             </div>
           </div>
         </div>
@@ -38,19 +41,19 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const { data, year, course } = state.allCourseData;
+  const { data, year, course } = state.allCourseData
   return {
-    courses: year
-      ? data.filter(item => {
-          return item.year === year;
-        })
-      : data
+    courses: year ? data.filter(item => item.year.toString() === year ) : data,
+    course,
+    allCourses: data,
+    year,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   getAllStudentDataAction: () => dispatch(getAllData()),
-  setYear: () => dispatch(setYear())
+  setCourse: course => dispatch(setCourse(course)),
+  setYear: year => dispatch(setYear(year)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

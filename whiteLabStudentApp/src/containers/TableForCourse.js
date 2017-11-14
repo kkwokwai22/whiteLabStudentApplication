@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 
 export default class TableForCourse extends Component {
-  renderCourse(classDetail) {
-    const year = classDetail.year;
-    const course = classDetail.course;
-    const instructor = classDetail.instructor;
-    const students = classDetail.students;
+  renderCourse({ id, year, course, instructor, students }) { 
     return (
-      <tr>
+      <tr key={id}>
         <td>{year}</td>
         <td>{course}</td>
         <td>{instructor}</td>
@@ -17,7 +13,11 @@ export default class TableForCourse extends Component {
   }
 
   render() {
-    console.log('the course data', this.props.courses);
+    const { courses, course } = this.props
+    let filteredCourses = course ? courses.filter(item => {
+      return item.course === course
+    }) : courses
+
     return (
       <table>
         <thead>
@@ -28,7 +28,7 @@ export default class TableForCourse extends Component {
             <th>Students</th>
           </tr>
         </thead>
-        <tbody>{this.props.courses.map(this.renderCourse)}</tbody>
+        <tbody>{filteredCourses.map(this.renderCourse)}</tbody>
       </table>
     );
   }
