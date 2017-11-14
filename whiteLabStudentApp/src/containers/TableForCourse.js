@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 export default class TableForCourse extends Component {
-  renderCourse({ year, course, instructor, students }) { 
+  renderCourse({ id, year, course, instructor, students }) { 
     return (
-      <tr>
+      <tr key={id}>
         <td>{year}</td>
         <td>{course}</td>
         <td>{instructor}</td>

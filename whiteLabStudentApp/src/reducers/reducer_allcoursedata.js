@@ -11,8 +11,7 @@ export default function(state = initState, action) {
         case FETCH_STUDENTDATA:
             return { ...state, data: action.payload.data };
         case SET_YEAR:
-            console.log({ ...state, year: action.year });
-            return { ...state, year: action.year };
+            return { ...state, year: action.year, course: '' };
         case CLEAR_YEAR:
             return { ...state, year: 0 };
         case SET_COURSE:
