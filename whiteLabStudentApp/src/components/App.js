@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   render() {
-    const { setYear, courses, setCourse } = this.props
+    const { setYear, courses, setCourse, course } = this.props
     return (
       <div className="App">
         <header className="App-header">
@@ -25,10 +25,11 @@ class App extends Component {
         <div class="wrapper">
           <div class="flex-container">
             <div className="pieChart">
-              <DisplayPieChart courses={courses} setCourse={setCourse} />
+              <DisplayPieChart courses={courses} setCourse={setCourse}/>
             </div>
             <div className="tableChart">
-              <TableForCourse courses={courses} setCourse={setCourse} />
+              {course && <span>{course}</span>}
+              <TableForCourse courses={courses} course={course}  />
             </div>
           </div>
         </div>
@@ -41,11 +42,10 @@ class App extends Component {
 const mapStateToProps = state => {
   const { data, year, course } = state.allCourseData;
   return {
-    courses: year
-      ? data.filter(item => {
+    courses: year ? data.filter(item => {
           return item.year === year;
-        })
-      : data
+        }) : data,
+    course,
   };
 };
 
