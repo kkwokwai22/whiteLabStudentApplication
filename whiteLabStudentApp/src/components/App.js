@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   render() {
-    const { setYear, courses } = this.props
+    const { setYear, courses, setCourse } = this.props
     return (
       <div className="App">
         <header className="App-header">

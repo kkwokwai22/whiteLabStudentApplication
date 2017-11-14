@@ -1,36 +1,36 @@
 import React, { Component } from 'react';
+import PieChart from 'react-svg-piechart';
 
 class DisplayPieChart extends Component {
+  onClickHandler(course){
+    this.props.setCourse(course)
+  }
+
   render() {
-    const { courses, setCourse } = this.props;
-    let hashTable = { keys: [] }
+    const { courses } = this.props;
+    const pieChartColors = ['#dd4b39', '#3b5998', '#00aced']
+    let sortedCourses = { keys: [] }
+    let legend = []
+    let pieChartData = []
+    
     courses.forEach(item => {
-      if(hashTable[item.course]) {
-        hashTable[item.course].push(item)
+      if(sortedCourses[item.course]) {
+        sortedCourses[item.course].push(item)
       } else {
-        hashTable[item.course] = []
-        hashTable.keys.push(item.course)
+        sortedCourses[item.course] = []
+        sortedCourses.keys.push(item.course)
       }
     })
-    console.log(hashTable[hashTable.keys[0]])
-    let appliedComposition = courses.filter(val => {
-      if (val.course.indexOf('Applied') > 1) return val.course;
-    });
-    let argumentAnalyisis = courses.filter(val => {
-      if (val.course.indexOf('Argument') > 1) return val.course;
-    });
-    let freshmanComposition = courses.filter(val => {
-      if (val.course.indexOf('Freshman') > 1) return val.course;
-    });
-    let appliedLen = appliedComposition.length;
-    let argumentLen = argumentAnalyisis.length;
-    let freshmanLen = freshmanComposition.length;
+    
+    sortedCourses.keys.forEach((key, index)  => {
+      legend.push(<button key={key} onClick={this.onClickHandler.bind(this, key)}>{key} peope in class: {sortedCourses[key].length}</button>)
+        pieChartData.push({ label: key, value: sortedCourses[key].length, color: pieChartColors[index]})
+    })
 
     return (
       <div>
-        <button>English 1C: Applied Composition people in class: {appliedLen}</button>
-        <button>English 1B: Argument & Analyisis people in class: {argumentLen}</button>
-        <button>English 1A: freshman Composition people in class: {freshmanLen}</button>
+        <PieChart data={pieChartData} sectorStrokeWidth={2} expandOnHover shrinkOnTouchEnd />
+        {legend}
       </div>
     );
   }
